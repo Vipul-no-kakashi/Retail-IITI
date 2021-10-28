@@ -115,12 +115,13 @@
 				</form>
 			</div>
 			<div class="form-container sign-in-container">
-				<form action="#">
+				<form action="/sign-in/Re_login/" method="post">
+					{% csrf_token %}
 					<h1 style="margin: 1rem!important;">Sign Back in</h1>
-					<input type="email" placeholder="Email" required />
-					<input type="password" placeholder="Password" required />
+					<input type="email" name ="email" placeholder="Email" required />
+					<input type="password" name="password" placeholder="Password" required />
 					<a href="">Forgot your password?</a>
-					<button>Sign In</button>
+					<button type="submit">Sign In</button>
 				</form>
 			</div>
 			<div class="overlay-container">
