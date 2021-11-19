@@ -15,7 +15,7 @@ def main_page(request, *args, **kwargs):
         re=request.META['HTTP_REFERER']
     except:
         re ="None"
-    if(not(("http://127.0.0.1:8000/" in re) or ("http://kakashicode.pythonanywhere.com/" in re)) ):
+    if(not(("http://127.0.0.1:8000/" in re) or ("http://kakashicode.pythonanywhere.com/" in re) or ("http://retailshopiiti.herokuapp.com/" in re)) ):
         return redirect("../")
     eid = request.session.get('eid')
     product_item = Product.objects.all()
