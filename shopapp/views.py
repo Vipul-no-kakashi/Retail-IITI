@@ -15,7 +15,7 @@ def main_page(request, *args, **kwargs):
         re=request.META['HTTP_REFERER']
     except:
         re ="None"
-    if(not("http://127.0.0.1:8000/" in re) ):
+    if(not(("http://127.0.0.1:8000/" in re) or ("http://kakashicode.pythonanywhere.com/" in re)) ):
         return redirect("../")
     eid = request.session.get('eid')
     product_item = Product.objects.all()
@@ -66,7 +66,7 @@ def main_page(request, *args, **kwargs):
                     # "userid": userid
                 }
                 return render(request, 'index_mainpage.html', context=context)
-    
+
 
     context = {
         "product": product_item,
@@ -79,7 +79,7 @@ def main_page(request, *args, **kwargs):
 
 def main_page_electronics(request, *args, **kwargs):
 
-            
+
     product_item = Product.objects.filter(category="Electronics")
     context = {
         "product": product_item,
@@ -90,7 +90,7 @@ def main_page_electronics(request, *args, **kwargs):
 
 def main_page_stationary(request, *args, **kwargs):
 
-            
+
     product_item = Product.objects.filter(category="Stationary")
     context = {
         "product": product_item,
@@ -101,7 +101,7 @@ def main_page_stationary(request, *args, **kwargs):
 
 def main_page_household(request, *args, **kwargs):
 
-            
+
     product_item = Product.objects.filter(category="Household")
     context = {
         "product": product_item,
@@ -112,7 +112,7 @@ def main_page_household(request, *args, **kwargs):
 
 def main_page_fashion(request, *args, **kwargs):
 
-            
+
     product_item = Product.objects.filter(category="Fashion")
     context = {
         "product": product_item,
@@ -315,7 +315,7 @@ def orders(request, *args, **kwargs):
     user_room = user_details[0]['room']
     user_hostel = user_details[0]['hostel']
     user_phone = user_details[0]['phone']
-    
+
 
     if 'order1' in request.POST:
         id = request.POST.get('order1')
@@ -352,9 +352,9 @@ def orders(request, *args, **kwargs):
 
         subject = 'Order Placed'
         message = f'''
-        Hi {user2}, your order has been placed. 
+        Hi {user2}, your order has been placed.
 
-        Order Details: 
+        Order Details:
 
         Order Id: { order2.id }
         Product Id: { id }
@@ -368,9 +368,9 @@ def orders(request, *args, **kwargs):
 
         subject = 'New Order'
         message = f'''
-        Hi {retailer2}, your have a new order. 
+        Hi {retailer2}, your have a new order.
 
-        Order Details: 
+        Order Details:
 
         Order Id: { order2.id }
         Product Id: { id }
@@ -458,9 +458,9 @@ def orders(request, *args, **kwargs):
 
         subject = 'Order Placed'
         message = f'''
-        Hi {user2}, your order has been placed. 
+        Hi {user2}, your order has been placed.
 
-        Order Details: 
+        Order Details:
 
         Order Id: { order2.id }
         Product Id: { id }
@@ -474,9 +474,9 @@ def orders(request, *args, **kwargs):
 
         subject = 'New Order'
         message = f'''
-        Hi {retailer2}, your have a new order. 
+        Hi {retailer2}, your have a new order.
 
-        Order Details: 
+        Order Details:
 
         Order Id: { order2.id }
         Product Id: { id }
@@ -524,10 +524,10 @@ def orders(request, *args, **kwargs):
 
         subject = 'Order Cancelled'
         message = f'''
-        Hi {user2}, your order has been cancelled. 
+        Hi {user2}, your order has been cancelled.
 
-        Order Details: 
-        
+        Order Details:
+
         Order Id: { order2['id'] }
         Product Id: { product_id }
         Product Name: { product12['product_name'] }
@@ -539,9 +539,9 @@ def orders(request, *args, **kwargs):
 
         subject = 'Order Cancelled'
         message = f'''
-        Hi {retailer2}, your order has been cancelled. 
+        Hi {retailer2}, your order has been cancelled.
 
-        Order Details: 
+        Order Details:
 
         Order Id: { order2['id'] }
         Product Id: { product_id }
@@ -621,9 +621,9 @@ def orders(request, *args, **kwargs):
 
             subject = 'New Order'
             message = f'''
-            Hi {retailer2}, your have a new order. 
+            Hi {retailer2}, your have a new order.
 
-            Order Details: 
+            Order Details:
             Order Id: { order2.id }
             Product Id: { id1 }
             Product Name: { name_product }
@@ -646,9 +646,9 @@ def orders(request, *args, **kwargs):
 
         subject = 'Order Placed'
         message = f'''
-        Hi {user2}, your order has been placed. 
+        Hi {user2}, your order has been placed.
 
-        Order Details: 
+        Order Details:
         { total_order }
         '''
         email_from = settings.EMAIL_HOST_USER
@@ -657,9 +657,9 @@ def orders(request, *args, **kwargs):
 
         # subject = 'New Order'
         # message = f'''
-        # Hi {retailer2}, your have a new order. 
+        # Hi {retailer2}, your have a new order.
 
-        # Order Details: 
+        # Order Details:
         # { total_retailer }
 
         # Customer Name: {user2}
@@ -751,7 +751,7 @@ def profile(request, id=None, *args, **kwargs):
         if form_phone:
             edit_user.phone = form_phone
 
-        
+
         edit_user.save()
 
 
@@ -801,14 +801,14 @@ def profile(request, id=None, *args, **kwargs):
 def wishlist(request, *args, **kwargs):
 
     eid = request.session.get('eid')
-       
+
     if 'name' in request.POST:
         wish = request.POST.get('name')
 
         check = Wishlist.objects.filter(user_id=eid, product_id=wish)
 
         if len(check)==0:
-        
+
             list = Wishlist()
             list.user_id = eid
             list.product_id = wish
