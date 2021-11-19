@@ -21,6 +21,9 @@ from Retailer.views import mainpage, update_product, add_product_form, add_produ
 from django.urls import include
 from payments.views import initiate_payment, proceed_payment, cart_initiate_payment, cart_proceed_payment, cartall_initiate_payment, cartall_proceed_payment
 
+from django.views.static import serve
+from django.conf.urls import url
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sign-in/', views.homeview),
@@ -60,5 +63,10 @@ urlpatterns = [
     path('Retailer/orders/', retailer_orders),
     path('Retailer/orders/<int:id>/', retailer_orders_product),
     path('main-page/aboutUs/', aboutus),
-    path('', include('payments.urls'))
+    path('', include('payments.urls')),
+
+
+
+    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
