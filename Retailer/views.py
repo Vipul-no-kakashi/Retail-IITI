@@ -12,7 +12,7 @@ def mainpage(request, *args, **kwargs):
     except:
         re ="None"
     # print(re)
-    if(not("http://127.0.0.1:8000/" in re)):
+    if(not(("http://127.0.0.1:8000/" in re) or ("http://kakashicode.pythonanywhere.com/" in re) or ("http://retailshopiiti.herokuapp.com/" in re)) ):
         return redirect("../")
     rid = request.session.get('rid')
     # print(rid)
@@ -160,11 +160,11 @@ def retailer_profile(request, id=None, *args, **kwargs):
 
         if form_state:
             edit_user.state = form_state
-    
+
         if form_phone:
             edit_user.phone = form_phone
 
-        
+
         edit_user.save()
 
 
